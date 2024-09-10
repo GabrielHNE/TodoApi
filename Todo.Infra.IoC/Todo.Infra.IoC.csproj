@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Todo.Domain\Todo.Domain.csproj" />
+    <ProjectReference Include="..\Todo.Application\Todo.Application.csproj" />
+    <ProjectReference Include="..\Todo.Infra.Data\Todo.Infra.Data.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>
