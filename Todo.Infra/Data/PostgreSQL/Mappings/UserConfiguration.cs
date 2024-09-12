@@ -12,9 +12,13 @@ namespace Todo.Infra.Data.PostgresSQL.Mappings
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
+            builder.ToTable("User");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Name).HasMaxLength(255).IsRequired();
+            
             builder.Property(x => x.Email).HasMaxLength(255).IsRequired();
+            builder.HasIndex(x => x.Email).IsUnique();
+
             builder.Property(x => x.Password).HasMaxLength(255).IsRequired();
             builder.Property(x => x.Disabled).HasDefaultValue(false);
         }

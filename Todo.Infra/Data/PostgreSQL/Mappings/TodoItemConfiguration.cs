@@ -8,6 +8,7 @@ namespace Todo.Infra.Data.PostgresSQL.Mappings
     {
         public void Configure(EntityTypeBuilder<TodoItem> builder)
         {
+            builder.ToTable("TodoItem");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Title).HasMaxLength(255).IsRequired();
             builder.Property(x => x.Description).HasMaxLength(500).IsRequired();
