@@ -30,7 +30,7 @@ namespace Todo.Infra.Data.PostgreSQL.Repositories
         }
 
         public async ValueTask<User> GetByEmailAsync(string email)
-        => await _context.Users.FirstAsync(u => u.Email.ToLower().Equals(email.ToLower()));
+        => await _context.Users.FirstAsync(u => string.Equals(u.Email, email, StringComparison.OrdinalIgnoreCase));
 
         public async ValueTask<User> GetByIdAsync(int id)
         => await _context.Users.SingleOrDefaultAsync(u => u.Id == id);
