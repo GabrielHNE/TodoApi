@@ -8,12 +8,14 @@ using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Todo.Domain.Interfaces.Services;
+using Todo.Infra.Auth;
 
 namespace Todo.Infra.Extensions
 {
     public static class AuthenticationExtensions
     {
-        public static IServiceCollection AddAuthentication(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddAuthentication(options => 
             {
@@ -34,8 +36,8 @@ namespace Todo.Infra.Extensions
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]))
                 };
             });
-
-            services.AddAuthorization();
+            
+            services.AddScoped<IJwtService, JwtService>();
             
             return services;
         }

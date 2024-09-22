@@ -30,13 +30,16 @@ namespace Todo.Infra.Data.PostgreSQL.Repositories
         }
 
         public async ValueTask<User> GetByEmailAsync(string email)
-        => await _context.Users.FirstAsync(u => string.Equals(u.Email, email, StringComparison.OrdinalIgnoreCase));
+            => await _context.Users.FirstAsync(u => u.Email.ToLower().Equals(email.ToLower()));
+
+        public async ValueTask<bool> ExistsByEmailAsync(string email)
+            => await _context.Users.AnyAsync(u => u.Email.ToLower().Equals(email.ToLower()));
 
         public async ValueTask<User> GetByIdAsync(int id)
-        => await _context.Users.SingleOrDefaultAsync(u => u.Id == id);
+            => await _context.Users.SingleOrDefaultAsync(u => u.Id == id);
 
         public async ValueTask<User> GetTodosAsync(int id)
-        => await _context.Users.Include(c => c.Todos).SingleOrDefaultAsync(u => u.Id == id);
+            => await _context.Users.Include(c => c.Todos).SingleOrDefaultAsync(u => u.Id == id);
 
         public async ValueTask<User> UpdateAsync(User user)
         {

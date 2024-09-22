@@ -11,11 +11,11 @@ using Todo.Domain.Interfaces.Services;
 
 namespace Todo.Infra.Auth
 {
-    public class AuthService : IAuthService
+    public class JwtService : IJwtService
     {
         private readonly IConfiguration _configuration;
 
-        public AuthService(IConfiguration configuration)
+        public JwtService(IConfiguration configuration)
         {
             _configuration = configuration;
         }
