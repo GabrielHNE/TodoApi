@@ -28,6 +28,8 @@ public static class DependencyInjection
         services.AddScoped<IPasswordEncoder, PasswordEncoder>();
 
         services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<ITodoItemService, TodoItemService>();
+        services.AddScoped<IUserService, UserService>();
 
         services.AddSwaggerJwtAuthentication();
 

@@ -1,18 +1,21 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using Todo.Domain.Models;
 
-namespace Todo.Domain.Entities
+namespace Todo.Domain.DTOs
 {
-    public class TodoItem : Entity
+    public class TodoDTO
     {
         public long Id { get; set; }
+        
+        [Required]
+        [MaxLength(250)]
         public string Title { get; set; }
+        
+        [Required]
+        [MaxLength(250)]
         public string Description { get; set; }
-        public long IdUser { get; set; }
-        public User User { get; set; }
     }
 }

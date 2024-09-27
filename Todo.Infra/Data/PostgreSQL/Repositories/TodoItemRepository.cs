@@ -28,11 +28,11 @@ namespace Todo.Infra.Data.PostgreSQL.Repositories
             return todoItem;
         }
 
-        public async ValueTask<IEnumerable<TodoItem>> GetAllByUserIdAsync(int userId)
-        => await _context.TodosItem.Where(c => c.IdUser == userId).ToListAsync();
+        public async ValueTask<IEnumerable<TodoItem>> GetAllByUserIdAsync(long userId)
+            => await _context.TodosItem.Where(c => c.IdUser == userId).ToListAsync();
 
-        public async ValueTask<TodoItem> GetById(int id)
-        => await _context.TodosItem.SingleOrDefaultAsync(x => x.Id == id);
+        public async ValueTask<TodoItem> GetByIdAsync(long id)
+            => await _context.TodosItem.SingleOrDefaultAsync(x => x.Id == id);
 
         public async ValueTask<TodoItem> UpdateAsync(TodoItem todoItem)
         {

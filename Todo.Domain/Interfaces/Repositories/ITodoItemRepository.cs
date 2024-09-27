@@ -8,8 +8,8 @@ namespace Todo.Domain.Interfaces.Repositories
 {
     public interface ITodoItemRepository
     {
-        ValueTask<IEnumerable<TodoItem>> GetAllByUserIdAsync(int userId);
-        ValueTask<TodoItem> GetById(int id);
+        ValueTask<IEnumerable<TodoItem>> GetAllByUserIdAsync(long userId);
+        ValueTask<TodoItem> GetByIdAsync(long id);
         ValueTask<TodoItem> CreateAsync(TodoItem todoItem);
         ValueTask<TodoItem> UpdateAsync(TodoItem todoItem);
         ValueTask<TodoItem> DeleteAsync(TodoItem todoItem);
