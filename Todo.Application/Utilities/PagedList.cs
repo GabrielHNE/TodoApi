@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Todo.Application.Utilities
 {
-    public class PagedList<T> : List<T>
+    public class PagedList<T>
     {
+        public List<T> Data {get; protected set; }
         public int Page { get; protected set; }
         public int Limit { get; protected set; }
         public long Total { get; protected set; }
@@ -15,11 +16,12 @@ namespace Todo.Application.Utilities
         
         PagedList(List<T> data, int total, int limit, int page)
         {
+            Data = data;
+            
             Total = total;
             Limit = limit;
             Page = page;
 
-            AddRange(data);
         }
 
         public static PagedList<T> ToPagedList(IQueryable<T> source, int pageNumber, int pageSize)
