@@ -8,7 +8,7 @@ namespace Todo.Domain.Interfaces.Services
         ValueTask<IEnumerable<TodoItem>> AllTodosAsync(long idUser);
         ValueTask<TodoItem> GetByIdAsync(long id);
         ValueTask<TodoItem> CreateAsync(TodoItem item);
-        ValueTask<TodoItem> UpdateAsync(long id, TodoDTO itemDTO);
-        ValueTask<TodoItem> DeleteAsync(long id);
+        ValueTask<TodoItem> UpdateAsync(long idTodo, TodoDTO itemDTO, long idUser);
+        ValueTask<TodoItem> DeleteAsync(long idTodo, long idUser);
     }
 }

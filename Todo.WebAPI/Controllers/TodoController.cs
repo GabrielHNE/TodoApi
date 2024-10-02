@@ -12,6 +12,7 @@ using Todo.Application.Mappers;
 using Todo.Application.Utilities;
 using Todo.Domain.DTOs;
 using Todo.Domain.Entities;
+using Todo.Domain.Exceptions;
 using Todo.Domain.Interfaces.Repositories;
 using Todo.Domain.Interfaces.Services;
 
@@ -43,41 +44,24 @@ namespace Todo.WebAPI.Controllers
             if(user == null)
                 return Unauthorized();
 
-            try {
+            var tEntity = todo.ToModel();
+            tEntity.IdUser = user.Id;
 
-                var tEntity = todo.ToModel();
-                tEntity.IdUser = user.Id;
-
-                var t = await _todoService.CreateAsync(tEntity);
-                
-                return Ok(t.ToDTO());
-            }
-            catch (Exception ex){
-                throw ex;
-            }
+            var t = await _todoService.CreateAsync(tEntity);
+            
+            return Ok(t.ToDTO());
         }
 
         [HttpPut]
         [Route("{id}")]
-        public async Task<IActionResult> Update([FromBody] TodoDTO todo, [FromRoute] long? id)
+        public async Task<IActionResult> Update([FromBody] TodoDTO todo, [FromRoute] long id)
         {
             var email = User.FindFirstValue(ClaimTypes.Email);
             var user = await _userService.GetByEmailAsync(email);
 
-            if(user == null)
-                return Unauthorized();
-
-            if(!id.HasValue)
-                return BadRequest();
-
-            try {
-                var t = await _todoService.UpdateAsync(id.Value, todo);
-                
-                return Ok(t.ToDTO());
-            }
-            catch (Exception ex){
-                throw ex;
-            }
+            var t = await _todoService.UpdateAsync(id, todo, user.Id);
+            
+            return Ok(t.ToDTO());
         }
 
         [HttpGet]
@@ -86,41 +70,22 @@ namespace Todo.WebAPI.Controllers
             var email = User.FindFirstValue(ClaimTypes.Email);
             var user = await _userService.GetByEmailAsync(email);
 
-            if(user == null)
-                return Unauthorized();
+            var todos = await _todoService.AllTodosAsync(user.Id);
+            var pagedList = PagedList<TodoDTO>.ToPagedList(todos.Select(c => c.ToDTO()), page, limit);
 
-            try {
-                var todos = await _todoService.AllTodosAsync(user.Id);
-                var pagedList = PagedList<TodoDTO>.ToPagedList(todos.Select(c => c.ToDTO()), page, limit);
-
-                return Ok(pagedList);
-            }
-            catch (Exception ex){
-                return NotFound();
-            }
+            return Ok(pagedList);            
         }
 
         [HttpDelete]
         [Route("{id}")]
-        public async Task<IActionResult> Delete([FromRoute] long? id)
+        public async Task<IActionResult> Delete([FromRoute] long id)
         {
             var email = User.FindFirstValue(ClaimTypes.Email);
             var user = await _userService.GetByEmailAsync(email);
 
-            if(user == null)
-                return Unauthorized();
-
-            if(!id.HasValue)
-                return BadRequest();
-
-            try {
-                var t = await _todoService.DeleteAsync(id.Value);
-                
-                return Ok(t.ToDTO());
-            }
-            catch (Exception ex){
-                throw ex;
-            }
+            var t = await _todoService.DeleteAsync(id, user.Id);
+            
+            return Ok(t.ToDTO());
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

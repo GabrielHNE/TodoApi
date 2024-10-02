@@ -1,4 +1,6 @@
+using System.Data.Common;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Todo.Domain.Entities;
 using Todo.Domain.Interfaces.Repositories;
 using Todo.Infra.Data.PostgresSQL.Context;

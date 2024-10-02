@@ -1,5 +1,6 @@
 using Todo.Application.DTOs;
 using Todo.Application.Interfaces;
+using Todo.Domain.Exceptions;
 using Todo.Domain.Interfaces.Repositories;
 using Todo.Domain.Interfaces.Services;
 using Todo.Domain.Models;
@@ -23,7 +24,7 @@ namespace Todo.Application.Services
         {
             if(await _userRepository.ExistsByEmailAsync(user.Email))
             {
-                throw new Exception("Email already in use");   
+                throw new UnauthorizedException("Email is already in use");   
             }
             
             User u = new User { Name = user.Name, Email = user.Email, Password = await _passwordEncoder.HashPasswordAsync(user.Password) };
@@ -37,7 +38,7 @@ namespace Todo.Application.Services
             var user = await _userRepository.GetByEmailAsync(login.Email);
 
             if(user == null || !_passwordEncoder.Verify(login.Password, user.Password))
-                throw new Exception("User not found");
+                throw new UnauthorizedException("Unauthorized");
             
             return _jwtService.GenerateToken(user.Name, user.Email);
         }
