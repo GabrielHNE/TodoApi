@@ -17,6 +17,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.ConfigureMiddlewares();
+
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();

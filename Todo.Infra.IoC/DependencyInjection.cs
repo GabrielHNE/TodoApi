@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Todo.Application.Interfaces;
 using Todo.Application.Services;
@@ -8,6 +9,7 @@ using Todo.Infra.Auth;
 using Todo.Infra.Data.PostgreSQL.Extensions;
 using Todo.Infra.Data.PostgreSQL.Repositories;
 using Todo.Infra.Extensions;
+using Todo.Infra.Middlewares;
 using Todo.Infra.Security;
 
 namespace Todo.Infra.IoC;
@@ -19,6 +21,8 @@ public static class DependencyInjection
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddApplicationDbContext(configuration);
+
+        services.AddTransient<ExceptionHandlingMiddleware>();
 
         services.AddControllers();
 
@@ -36,5 +40,11 @@ public static class DependencyInjection
         services.AddJwtAuthentication(configuration);        
 
         return services;
+    }
+
+    public static IApplicationBuilder ConfigureMiddlewares(this IApplicationBuilder app){
+        app.UseMiddleware<ExceptionHandlingMiddleware>();
+
+        return app;
     }
 }
