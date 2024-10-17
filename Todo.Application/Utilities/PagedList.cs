@@ -21,7 +21,6 @@ namespace Todo.Application.Utilities
             Total = total;
             Limit = limit;
             Page = page;
-
         }
 
         public static PagedList<T> ToPagedList(IQueryable<T> source, int pageNumber, int pageSize)
