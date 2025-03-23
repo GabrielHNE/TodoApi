@@ -29,7 +29,7 @@ namespace Todo.Application.Services
             
             User u = new User { Name = user.Name, Email = user.Email, Password = await _passwordEncoder.HashPasswordAsync(user.Password) };
             
-            await _userRepository.CreateAsync(u);
+            await _userRepository.SaveAsync(u);
 
             return _jwtService.GenerateToken(u.Name, u.Email);
         }

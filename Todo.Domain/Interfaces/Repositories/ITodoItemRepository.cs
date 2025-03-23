@@ -6,12 +6,8 @@ using Todo.Domain.Entities;
 
 namespace Todo.Domain.Interfaces.Repositories
 {
-    public interface ITodoItemRepository
+    public interface ITodoItemRepository : IRepository<TodoItem>
     {
         ValueTask<IEnumerable<TodoItem>> GetAllByUserIdAsync(long userId);
-        ValueTask<TodoItem> GetByIdAsync(long id);
-        ValueTask<TodoItem> CreateAsync(TodoItem todoItem);
-        ValueTask<TodoItem> UpdateAsync(TodoItem todoItem);
-        ValueTask<TodoItem> DeleteAsync(TodoItem todoItem);
     }
 }

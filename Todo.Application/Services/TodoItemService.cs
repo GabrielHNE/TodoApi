@@ -27,7 +27,7 @@ namespace Todo.Application.Services
             => await _todoItemRepository.GetByIdAsync(id);
 
         public async ValueTask<TodoItem> CreateAsync(TodoItem item)
-            => await _todoItemRepository.CreateAsync(item);
+            => await _todoItemRepository.SaveAsync(item);
 
         public async ValueTask<TodoItem> UpdateAsync(long idTodo, TodoDTO itemDTO, long idUser)    
         {
@@ -36,33 +36,31 @@ namespace Todo.Application.Services
             if(obj == null)
                 throw new NotFoundException("Not Found");
             
-            if(CheckTodoBelongsUser(obj, idUser))
+            if(CheckTodoBelongsToUser(obj, idUser))
                 throw new UnauthorizedException("Not authorized");
 
             obj.Title = itemDTO.Title;
             obj.Description = itemDTO.Description;
 
-            await _todoItemRepository.UpdateAsync(obj);
+            await _todoItemRepository.SaveAsync(obj);
 
             return obj;
         } 
 
-        public async ValueTask<TodoItem> DeleteAsync(long idTodo, long idUser)
+        public async Task DeleteAsync(long idTodo, long idUser)
         {
             var todo = await _todoItemRepository.GetByIdAsync(idTodo);
 
             if(todo == null)
                 throw new NotFoundException("NotFound");
             
-            if(CheckTodoBelongsUser(todo, idUser))
+            if(CheckTodoBelongsToUser(todo, idUser))
                 throw new UnauthorizedException("Not authorized");
 
-
-            return await _todoItemRepository.DeleteAsync(todo);
+            await _todoItemRepository.DeleteAsync(idTodo);
         }
 
-
-        private bool CheckTodoBelongsUser(TodoItem todo, long userId)
+        private bool CheckTodoBelongsToUser(TodoItem todo, long userId)
             => todo.IdUser == userId;
     }
 }

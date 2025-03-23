@@ -83,9 +83,9 @@ namespace Todo.WebAPI.Controllers
             var email = User.FindFirstValue(ClaimTypes.Email);
             var user = await _userService.GetByEmailAsync(email);
 
-            var t = await _todoService.DeleteAsync(id, user.Id);
+            await _todoService.DeleteAsync(id, user.Id);
             
-            return Ok(t.ToDTO());
+            return Ok();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
