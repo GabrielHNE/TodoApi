@@ -23,7 +23,7 @@ namespace Todo.WebAPI.Controllers
     [ApiController]
     [Consumes(MediaTypeNames.Application.Json)]
     [Produces(MediaTypeNames.Application.Json)]
-    public class TodoController : Controller
+    public class TodoController : ControllerBase
     {
         private readonly ITodoItemService _todoService;
         private readonly IUserService _userService;
@@ -86,12 +86,6 @@ namespace Todo.WebAPI.Controllers
             await _todoService.DeleteAsync(id, user.Id);
             
             return Ok();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View("Error!");
         }
     }
 }
