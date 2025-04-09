@@ -26,16 +26,24 @@ namespace Todo.Application.Utilities
         public static PagedList<T> ToPagedList(IQueryable<T> source, int pageNumber, int pageSize)
         {
             var count = source.Count();
-            var items = source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
-            return new PagedList<T>(items, count, pageSize, pageNumber);
+            var items = source
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            return new(items, count, pageSize, pageNumber);
         }
 
         // Para coleções IEnumerable (não relacionadas a banco de dados)
         public static PagedList<T> ToPagedList(IEnumerable<T> source, int pageNumber, int pageSize)
         {
             var count = source.Count();
-            var items = source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
-            return new PagedList<T>(items, count, pageSize, pageNumber);
+            var items = source
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            return new(items, count, pageSize, pageNumber);
         }
     }
 }
