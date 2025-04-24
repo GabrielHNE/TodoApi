@@ -1,0 +1,6 @@
+@Todo.Api_HostAddress = http://localhost:5072
+
+GET {{Todo.Api_HostAddress}}/login-google/
+Accept: application/json
+
+###

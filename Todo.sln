@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Todo.Domain", "Todo.Domain\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Todo.Infra.IoC", "Todo.Infra.IoC\Todo.Infra.IoC.csproj", "{E298F901-0992-4765-8B91-CC87C6A01B25}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Todo.Api", "Todo.WebAPI\Todo.Api.csproj", "{5F61E036-02C9-4158-9193-38F8B2FD4B8F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Todo.Api", "Todo.Api\Todo.Api.csproj", "{5F61E036-02C9-4158-9193-38F8B2FD4B8F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Todo.Infra", "Todo.Infra\Todo.Infra.csproj", "{7699F36E-450C-4947-A2E5-5B46E776D9E0}"
 EndProject
